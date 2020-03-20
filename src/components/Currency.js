@@ -7,9 +7,19 @@ const styles = {
   container: {
     marginTop: 20,
     marginBottom: 20,
+    display: 'inline-block',
   },
   currency: {
     marginRight: 10,
+    '& label, & label.Mui-disabled': {
+        color: '#1C1F30',
+    },
+    '& fieldset, & .MuiOutlinedInput-root.Mui-disabled fieldset': {
+        borderColor: '#1C1F30',
+    },
+    '& input': {
+        color: '#1C1F30',
+    },
   },
 };
 
@@ -50,24 +60,24 @@ class Currency extends Component {
     const { numberValue } = this.state;
 
     return (
-      <div className={classes.container}>
-        <TextField
-          label={title}
-          value={numberValue}
-          onChange={this.onChangeValue}
-          margin="normal"
-          variant="outlined"
-          className={classes.currency}
-        />
-        <TextField
-          label="USD"
-          value={numberValue * currencyExchangeValue}
-          disabled
-          margin="normal"
-          variant="outlined"
-          className={classes.currency}
-        />
-      </div>
+        <div className={classes.container}>
+            <TextField
+                label={title}
+                value={numberValue}
+                onChange={this.onChangeValue}
+                margin="normal"
+                variant="outlined"
+                className={classes.currency}
+            />
+            <TextField
+                label="USD"
+                value={numberValue * currencyExchangeValue}
+                disabled
+                margin="normal"
+                variant="outlined"
+                className={classes.currency}
+            />
+        </div>
     );
   }
 }

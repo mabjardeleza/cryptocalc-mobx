@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { EXCHANGES } from '../constants';
 import CryptoPage from '../components/CryptoPage';
 import { pricesActions, exchangeRateActions } from '../actions';
+import '../assets/css/Main.css';
 
 class CryptoPageContainer extends Component {
   constructor(props) {
@@ -27,10 +28,6 @@ class CryptoPageContainer extends Component {
     requestRate();
   }
 
-  onChangeValue = (event) => {
-    this.setState({ searchValue: event.target.value });
-  }
-
   calculateTotal = (value = 0, key = null) => {
     const { rate } = this.props;
     const { allCurrencies } = this.state;
@@ -47,12 +44,12 @@ class CryptoPageContainer extends Component {
     const { total, allCurrencies } = this.state;
 
     return (
-      <CryptoPage
-        allCurrencies={allCurrencies}
-        prices={prices}
-        total={total}
-        calculateTotal={this.calculateTotal}
-      />
+        <CryptoPage
+            allCurrencies={allCurrencies}
+            prices={prices}
+            total={total}
+            calculateTotal={this.calculateTotal}
+        />
     );
   }
 }

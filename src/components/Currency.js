@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
 import Props from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
+import styled from "styled-components";
 
-const styles = {
-  container: {
-    marginTop: 20,
-    marginBottom: 20,
-    display: 'inline-block',
-  },
-  currency: {
-    marginRight: 10,
-    '& label, & label.Mui-disabled': {
-        color: '#1C1F30',
-    },
-    '& fieldset, & .MuiOutlinedInput-root.Mui-disabled fieldset': {
-        borderColor: '#1C1F30',
-    },
-    '& input': {
-        color: '#1C1F30',
-    },
-  },
-};
+const Container = styled.div`
+    margin: 5px 20px;
+    display: flex;
+
+    @media (min-width: 768px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+`;
+
+const ResizeableTextField = styled(TextField)`
+    & label, & label.Mui-disabled {
+        color: #1C1F30;
+    }
+
+    & fieldset, & .MuiOutlinedInput-root.Mui-disabled fieldset {
+        border-color: #1C1F30;
+    }
+
+    & input {
+        color: #1C1F30;
+        padding: 10.5px 14px;
+    }
+
+    &:first-child {
+        margin-right: 10px;
+    }
+
+    @media (min-width: 768px) {
+        & input {
+            padding: 18.5px 14px;
+        }
+    }
+`;
 
 class Currency extends Component {
   constructor(props) {
@@ -54,30 +69,27 @@ class Currency extends Component {
     const {
       currencyExchangeValue,
       exchange: { title },
-      classes,
     } = this.props;
 
     const { numberValue } = this.state;
 
     return (
-        <div className={classes.container}>
-            <TextField
+        <Container>
+            <ResizeableTextField
                 label={title}
                 value={numberValue}
                 onChange={this.onChangeValue}
                 margin="normal"
                 variant="outlined"
-                className={classes.currency}
             />
-            <TextField
+            <ResizeableTextField
                 label="USD"
                 value={numberValue * currencyExchangeValue}
                 disabled
                 margin="normal"
                 variant="outlined"
-                className={classes.currency}
             />
-        </div>
+        </Container>
     );
   }
 }
@@ -92,4 +104,4 @@ Currency.defaultTypes = {
   currencyExchangeValue: '',
 };
 
-export default withStyles(styles)(Currency);
+export default Currency;

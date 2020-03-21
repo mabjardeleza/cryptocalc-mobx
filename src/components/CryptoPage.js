@@ -3,64 +3,20 @@ import Props from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import styled from "styled-components";
 
 import Currency from './Currency';
 
 const styles = {
-    title: {
-        '& div:first-child': {
-            color: '#F58A08',
-            textAlign: 'right',
-            paddingRight: '10px',
-        },
-        '& div:nth-child(2)': {
-            color: '#fff',
-            textAlign: 'left',
-            paddingLeft: '10px',
-        },
-        '& h1': {
-            fontWeight: '600',
-        },
-        position: 'fixed',
-        width: '100%',
-        zIndex: 10,
-        textTransform: 'uppercase',
-        display: 'none',
-    },
-    titleMobile: {
-        '& span': {
-            color: '#13161f',
-            textAlign: 'right',
-        },
-        color: '#F58A08',
-        position: 'fixed',
-        textAlign: 'center',
-        width: '50%',
-        zIndex: 10,
-        textTransform: 'uppercase',
-        fontWeight: '700',
-        paddingTop: '20px',
-    },
     mainContainer: {
         color: 'gray',
         position: 'relative',
-    },
-    contentContainer: {
-        height: '100vh',
     },
     totalContainer: {
         backgroundColor: '#13161f',
         height: 'inherit',
         position: 'relative',
-    },
-    caret: {
-        position: 'absolute',
-        top: '50%',
-        left: '-100px',
-        marginTop: '-50px',
-        borderWidth: '50px',
-        borderStyle: 'solid',
-        borderColor: 'transparent #13161f transparent transparent',
+        width: '100%',
     },
     total: {
         '& span': {
@@ -70,6 +26,67 @@ const styles = {
     },
 };
 
+const Title = styled(Typography)`
+    color: #F58A08;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-top: 5px;
+    font-size: 2rem;
+
+    & span {
+        color: #13161f;
+        text-align: right;
+    }
+
+    @media (min-width: 375px) {
+        font-size: 3rem;
+    }
+
+    @media (min-width: 1280px) {
+        width: 50%;
+        font-size: 5rem;
+        padding-top: 20px;
+    }
+`;
+
+const ContentContainer = styled(Box)`
+    height: 100vh;
+    flex-direction: column;
+
+    @media (min-width: 1280px) {
+        flex-direction: row;
+    }
+`;
+
+const Caret = styled.span`
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    margin-left: -30px;
+    border-width: 30px;
+    border-style: solid;
+    border-color: transparent transparent #13161f transparent;
+
+    @media (min-width: 375px) {
+        top: -100px;
+        left: 50%;
+        margin-left: -50px;
+        border-width: 50px;
+    }
+
+    @media (min-width: 1280px) {
+        top: 50%;
+        left: -100px;
+        margin-top: -50px;
+        margin-left: 0;
+        border-color: transparent #13161f transparent transparent;
+    }
+`
+
 const CryptoPage = ({
   allCurrencies,
   prices,
@@ -78,22 +95,10 @@ const CryptoPage = ({
   classes,
 }) => (
     <div className={classes.mainContainer}>
-        <Typography variant="h1" color="inherit" className={classes.titleMobile}>
+        <Title variant="h1" color="inherit">
             Crypto<span>Calc</span>
-        </Typography>
-        <Box display="flex" alignItems="center" className={classes.title}>
-            <Box display="flex" flex="1" justifyContent="flex-end">
-                <Typography variant="h1" color="inherit">
-                    Crypto
-                </Typography>
-            </Box>
-            <Box display="flex" flex="1">
-                <Typography variant="h1" color="inherit">
-                    Calc
-                </Typography>
-            </Box>
-        </Box>
-        <Box display="flex" alignItems="center" className={classes.contentContainer}>
+        </Title>
+        <ContentContainer display="flex" alignItems="center">
             <Box display="flex" flex="1" alignItems="center" justifyContent="center" flexDirection="column">
                 {Object.values(allCurrencies).map(exchange => (
                 <Currency
@@ -108,9 +113,9 @@ const CryptoPage = ({
                 <Typography variant="h1" color="inherit" className={classes.total}>
                     {total} <span>AUD</span>
                 </Typography>
-                <span className={classes.caret} />
+                <Caret />
             </Box>
-        </Box>
+        </ContentContainer>
     </div>
 );
 

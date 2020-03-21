@@ -3,7 +3,7 @@ import Props from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 import Currency from './Currency';
 

@@ -17,8 +17,8 @@ class CryptoPageContainer extends Component {
   }
 
   componentDidMount() {
-    this.requestAllPrices()
-    this.interval = setInterval(() => this.requestAllPrices(), 2000);
+    this.requestAllPrices();
+    this.interval = setInterval(() => this.requestAllPrices(), 10 * 60000);
   }
 
   requestAllPrices = () => {

@@ -18,12 +18,6 @@ const styles = {
         position: 'relative',
         width: '100%',
     },
-    total: {
-        '& span': {
-            fontSize: '30px',
-        },
-        color: '#fff',
-    },
 };
 
 const Title = styled(Typography)`
@@ -85,7 +79,21 @@ const Caret = styled.span`
         margin-left: 0;
         border-color: transparent #13161f transparent transparent;
     }
-`
+`;
+
+const Total = styled(Typography)`
+    & span {
+        font-size: 30px;
+    }
+    color: #fff;
+    text-align: center;
+    font-size: 3rem;
+    padding: 20px;
+
+    @media (min-width: 768px) {
+        font-size: 6rem;
+    }
+`;
 
 const CryptoPage = ({
   allCurrencies,
@@ -110,9 +118,9 @@ const CryptoPage = ({
                 ))}
             </Box>
             <Box className={classes.totalContainer} display="flex" flex="1" alignItems="center" justifyContent="center">
-                <Typography variant="h1" color="inherit" className={classes.total}>
-                    {total} <span>AUD</span>
-                </Typography>
+                <Total variant="h1" color="inherit">
+                    {total.toFixed(2)} <span>AUD</span>
+                </Total>
                 <Caret />
             </Box>
         </ContentContainer>

@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Props from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import styled from 'styled-components';
+
+import usePrevious from '../hooks/usePrevious';
 
 const Container = styled.div`
   margin: 5px 20px;
@@ -40,69 +42,44 @@ const ResizeableTextField = styled(TextField)`
   }
 `;
 
-class Currency extends Component {
-  constructor(props) {
-    super(props);
+const Currency = ({
+  currencyExchangeValue,
+  calculateTotal,
+  exchange: { key, title },
+}) => {
+  const [numberValue, setNumberValue] = useState(0);
+  const prevValue = usePrevious(currencyExchangeValue);
 
-    this.state = {
-      numberValue: 0,
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      currencyExchangeValue,
-      calculateTotal,
-      exchange: { key },
-    } = this.props;
-    const { currencyExchangeValue: prevValue } = prevProps;
-    const { numberValue } = this.state;
-
+  useEffect(() => {
     if (currencyExchangeValue !== prevValue) {
       calculateTotal(numberValue * currencyExchangeValue, key);
     }
-  }
+  }, [currencyExchangeValue, calculateTotal]);
 
-  onChangeValue = event => {
-    const {
-      calculateTotal,
-      currencyExchangeValue,
-      exchange: { key },
-    } = this.props;
-    this.setState({
-      numberValue: event.target.value,
-    });
+  const onChangeValue = event => {
+    setNumberValue(event.target.value);
     calculateTotal(event.target.value * currencyExchangeValue, key);
   };
 
-  render() {
-    const {
-      currencyExchangeValue,
-      exchange: { title },
-    } = this.props;
-
-    const { numberValue } = this.state;
-
-    return (
-      <Container>
-        <ResizeableTextField
-          label={title}
-          value={numberValue}
-          onChange={this.onChangeValue}
-          margin='normal'
-          variant='outlined'
-        />
-        <ResizeableTextField
-          label='USD'
-          value={numberValue * currencyExchangeValue}
-          disabled
-          margin='normal'
-          variant='outlined'
-        />
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <ResizeableTextField
+        label={title}
+        value={numberValue}
+        onChange={onChangeValue}
+        margin='normal'
+        variant='outlined'
+      />
+      <ResizeableTextField
+        label='USD'
+        value={numberValue * currencyExchangeValue}
+        disabled
+        margin='normal'
+        variant='outlined'
+      />
+    </Container>
+  );
+};
 
 Currency.propTypes = {
   exchange: Props.shape({}),

@@ -140,14 +140,14 @@ CryptoPage.propTypes = {
   allCurrencies: Props.shape({}),
   calculateTotal: Props.func,
   prices: Props.shape({}),
-  total: Props.number,
+  total: Props.string,
 };
 
 CryptoPage.defaultTypes = {
   allCurrencies: {},
   calculateTotal: () => {},
   currencyValues: {},
-  total: 0,
+  total: '',
 };
 
 export default withStyles(styles)(CryptoPage);

@@ -17,7 +17,7 @@ class CalculatorStore {
     const total = currencies
       .map(currency => currency.value)
       .reduce((accumulator, currency) => accumulator + currency);
-    return total * rate;
+    return (total * rate).toFixed(2);
   }
 }
 

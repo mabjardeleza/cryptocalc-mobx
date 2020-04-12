@@ -128,7 +128,7 @@ const CryptoPage = ({
         justifyContent='center'
       >
         <Total variant='h1' color='inherit'>
-          {total.toFixed(2)} <span>AUD</span>
+          {total} <span>AUD</span>
         </Total>
         <Caret />
       </Box>

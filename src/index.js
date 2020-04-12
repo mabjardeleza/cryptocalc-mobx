@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
+import 'mobx-react/batchingForReactDom';
+
 import cryptoPricesStore from './stores/cryptoPricesStore';
 import currencyRatesStore from './stores/currencyRatesStore';
 import calculatorStore from './stores/calculatorStore';

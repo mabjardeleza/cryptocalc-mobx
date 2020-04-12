@@ -6,7 +6,7 @@ class CryptoPricesStore {
   @observable hasErrorPrices = false;
   @observable pricesErrorMessage = '';
 
-  @action loadPrices(key) {
+  @action loadPrice(key) {
     this.isLoadingPrices = true;
     const url = `/markets/coinbase-pro/${key}/price`;
     fetch(url, {
@@ -15,10 +15,10 @@ class CryptoPricesStore {
         'Content-type': 'application/json',
       },
     })
+      .then(response => response.json())
       .then(
         action(response => {
-          const price = response.json();
-          this.prices[key] = price.result.price;
+          this.prices[key] = response.result.price;
           this.hasErrorPrices = false;
           this.pricesErrorMessage = '';
         }),
@@ -36,3 +36,5 @@ class CryptoPricesStore {
       );
   }
 }
+
+export default new CryptoPricesStore();

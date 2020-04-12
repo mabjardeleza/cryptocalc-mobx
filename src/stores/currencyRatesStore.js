@@ -15,10 +15,10 @@ class CurrencyRatesStore {
         'Content-Type': 'application/json',
       },
     })
+      .then(response => response.json())
       .then(
         action(response => {
-          const rates = response.json();
-          this.rate = rates.rates.AUD;
+          this.rate = response.rates.AUD;
           this.hasErrorRate = false;
           this.rateErrorMessage = '';
         }),
@@ -36,3 +36,5 @@ class CurrencyRatesStore {
       );
   }
 }
+
+export default new CurrencyRatesStore();

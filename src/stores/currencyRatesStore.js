@@ -8,7 +8,7 @@ class CurrencyRatesStore {
 
   @action loadRate() {
     this.isLoadingRate = true;
-    const url = `https://openexchangerates.org/api/latest.json?app_id=9d13fcd70a6a48b58ae9d823cccd7119&symbols=AUD`;
+    const url = `https://openexchangerates.org/api/latest.json?app_id=${process.env.REACT_APP_OPENEXCHANGE_ID}&symbols=AUD`;
     fetch(url, {
       headers: {
         Accept: 'application/json',

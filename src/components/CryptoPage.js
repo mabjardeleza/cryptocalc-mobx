@@ -4,9 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
-import { observer } from 'mobx-react';
 
-import Currency from './Currency';
+import CurrencyList from './CurrencyList';
 
 const styles = {
   mainContainer: {
@@ -96,46 +95,45 @@ const Total = styled(Typography)`
   }
 `;
 
-const CryptoPage = observer(
-  ({ allCurrencies, prices, total, calculateTotal, classes }) => (
-    <div className={classes.mainContainer}>
-      <Title variant='h1' color='inherit'>
-        Crypto<span>Calc</span>
-      </Title>
-      <ContentContainer display='flex' alignItems='center'>
-        <Box
-          display='flex'
-          flex='1'
-          alignItems='center'
-          justifyContent='center'
-          flexDirection='column'
-        >
-          {Object.values(allCurrencies).map(exchange => (
-            <Currency
-              key={exchange.key}
-              exchange={exchange}
-              currencyExchangeValue={
-                prices[exchange.key] ? prices[exchange.key] : 0
-              }
-              calculateTotal={calculateTotal}
-            />
-          ))}
-        </Box>
-        <Box
-          className={classes.totalContainer}
-          display='flex'
-          flex='1'
-          alignItems='center'
-          justifyContent='center'
-        >
-          <Total variant='h1' color='inherit'>
-            {total.toFixed(2)} <span>AUD</span>
-          </Total>
-          <Caret />
-        </Box>
-      </ContentContainer>
-    </div>
-  ),
+const CryptoPage = ({
+  allCurrencies,
+  prices,
+  total,
+  calculateTotal,
+  classes,
+}) => (
+  <div className={classes.mainContainer}>
+    <Title variant='h1' color='inherit'>
+      Crypto<span>Calc</span>
+    </Title>
+    <ContentContainer display='flex' alignItems='center'>
+      <Box
+        display='flex'
+        flex='1'
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+      >
+        <CurrencyList
+          allCurrencies={allCurrencies}
+          prices={prices}
+          calculateTotal={calculateTotal}
+        />
+      </Box>
+      <Box
+        className={classes.totalContainer}
+        display='flex'
+        flex='1'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Total variant='h1' color='inherit'>
+          {total.toFixed(2)} <span>AUD</span>
+        </Total>
+        <Caret />
+      </Box>
+    </ContentContainer>
+  </div>
 );
 
 CryptoPage.propTypes = {
